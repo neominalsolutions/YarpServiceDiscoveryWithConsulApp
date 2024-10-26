@@ -12,8 +12,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<IConsulClient, ConsulClient>(p => new ConsulClient(consulConfig =>
 {
-  //consulConfig.Address = new Uri("http://localhost:8500"); // Local
-  consulConfig.Address = new Uri("http://consul1:8500"); // Docker
+  consulConfig.Address = new Uri("http://localhost:8500"); // Local
+  // consulConfig.Address = new Uri("http://consul1:8500"); // Docker
 }));
 
 
@@ -24,8 +24,8 @@ var consulClient = app.Services.GetRequiredService<IConsulClient>();
 
 app.Lifetime.ApplicationStarted.Register(() =>
 {
-  //var uri = new Uri("http://localhost:5001"); // Local
-  var uri = new Uri("http://api1:5001"); // Docker
+  var uri = new Uri("http://localhost:5001"); // Local
+  // var uri = new Uri("http://api1:5001"); // Docker
   var serviceName = "api1";
   var serviceId = "api1";
 
@@ -43,6 +43,7 @@ app.Lifetime.ApplicationStarted.Register(() =>
   Console.Out.WriteLine("Service Registered");
 });
 
+// uygulama down olduðunda servis register ettiði consul üzerinden kendini sildirmesi lazým.
 app.Lifetime.ApplicationStopping.Register(() =>
 {
   Console.Out.WriteLine("Service Deregistered");

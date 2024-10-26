@@ -13,14 +13,30 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddReverseProxy();
 
+//v2
+//var routes = new List<Yarp.ReverseProxy.Configuration.RouteConfig>();
+//routes.Add(new Yarp.ReverseProxy.Configuration.RouteConfig
+//{
+ 
+//});
+
+//var clusters = new List<Yarp.ReverseProxy.Configuration.ClusterConfig>();
+//clusters.Add(new Yarp.ReverseProxy.Configuration.ClusterConfig
+//{
+
+//});
+
+//builder.Services.AddReverseProxy().LoadFromMemory(routes,clusters);
+
 builder.Services.AddSingleton<IConsulClient, ConsulClient>(p => new ConsulClient(consulConfig =>
 {
-  //consulConfig.Address = new Uri("http://localhost:8500"); // local
-  consulConfig.Address = new Uri("http://consul1:8500"); // Docker
+  consulConfig.Address = new Uri("http://localhost:8500"); // Local
+  // consulConfig.Address = new Uri("http://consul1:8500"); // Docker
 }));
 
 
 
+// route yapýlarý artýk buradan hizmet veriyor.
 builder.Services.AddSingleton<IProxyConfigProvider,ConsulProxyConfigProvider>();
 
 var app = builder.Build();
