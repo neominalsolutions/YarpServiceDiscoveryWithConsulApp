@@ -1,0 +1,78 @@
+services:
+  gateway:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:5011
+    ports:
+      - "5011:5011"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    networks:
+      - backendservice_network
+
+  api1:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:5001
+    ports:
+      - "5001:5001"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    networks:
+      - backendservice_network
+    depends_on: 
+      - gateway
+      - rabbitmq
+      - consul
+    external_links: 
+      - rabbitmq_service
+      - consul_service
+
+  api2:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:5002
+    ports:
+      - "5002:5002"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    networks:
+      - backendservice_network
+    depends_on: 
+      - gateway
+      - rabbitmq
+      - consul
+    external_links: 
+      - rabbitmq
+      - consul_service
+
+  consul:
+    ports:
+      - 8500:8500
+      - 8600:8600/tcp
+      - 8600:8600/udp
+    networks:
+      - backendservice_network
+  
+  rabbitmq:
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq
+    networks:
+      - backendservice_network
+
+networks:
+  backendservice_network:
+     driver: bridge
+     external: true
+
+volumes:
+ rabbitmq:
+
+
+ 

@@ -1,0 +1,25 @@
+services:
+  gateway:
+    container_name: gateway
+    image: ${DOCKER_REGISTRY-}gateway
+    build:
+      context: .
+      dockerfile: src/Gateway/Dockerfile
+  api1:
+    container_name: api1
+    image: ${DOCKER_REGISTRY-}api1
+    build:
+      context: .
+      dockerfile: src/API1/Dockerfile
+  api2:
+    container_name: api2
+    image: ${DOCKER_REGISTRY-}api2
+    build:
+      context: .
+      dockerfile: src/API2/Dockerfile
+  consul:
+    container_name: consul1
+    image: hashicorp/consul:1.15
+  rabbitmq:
+    container_name: rabbitmq1
+    image: rabbitmq:3-management
