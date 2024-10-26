@@ -12,8 +12,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<IConsulClient, ConsulClient>(p => new ConsulClient(consulConfig =>
 {
-  // consulConfig.Address = new Uri("http://localhost:8500"); // Local
-  consulConfig.Address = new Uri("http://consul1:8500"); // Docker Container Name üzerinden haberleþmelerini saðlamak. consul1 arkadaþ container_name denk gelir.
+  consulConfig.Address = new Uri("http://localhost:8500"); // Local
+  // consulConfig.Address = new Uri("http://consul1:8500"); // Docker Container Name üzerinden haberleþmelerini saðlamak. consul1 arkadaþ container_name denk gelir.
 }));
 
 
@@ -24,8 +24,8 @@ var consulClient = app.Services.GetRequiredService<IConsulClient>();
 
 app.Lifetime.ApplicationStarted.Register(() =>
 {
-  // var uri = new Uri("http://localhost:5001"); // Local
-  var uri = new Uri("http://api1:5001"); // Docker => container_name
+  var uri = new Uri("http://localhost:5001"); // Local
+  // var uri = new Uri("http://api1:5001"); // Docker => container_name
   var serviceName = "api1";
   var serviceId = "api1";
 

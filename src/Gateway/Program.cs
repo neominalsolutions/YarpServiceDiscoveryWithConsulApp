@@ -1,5 +1,6 @@
 using Consul;
 using Gateway.Services;
+using Serilog;
 using Yarp.ReverseProxy.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,11 +14,13 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddReverseProxy();
 
+builder.Host.UseSerilog((ctx, cfg) => cfg.ReadFrom.Configuration(ctx.Configuration));
+
 //v2
 //var routes = new List<Yarp.ReverseProxy.Configuration.RouteConfig>();
 //routes.Add(new Yarp.ReverseProxy.Configuration.RouteConfig
 //{
- 
+
 //});
 
 //var clusters = new List<Yarp.ReverseProxy.Configuration.ClusterConfig>();
@@ -30,8 +33,8 @@ builder.Services.AddReverseProxy();
 
 builder.Services.AddSingleton<IConsulClient, ConsulClient>(p => new ConsulClient(consulConfig =>
 {
-  // consulConfig.Address = new Uri("http://localhost:8500"); // Local
-  consulConfig.Address = new Uri("http://consul1:8500"); // Docker
+  consulConfig.Address = new Uri("http://localhost:8500"); // Local
+  // consulConfig.Address = new Uri("http://consul1:8500"); // Docker
 }));
 
 
