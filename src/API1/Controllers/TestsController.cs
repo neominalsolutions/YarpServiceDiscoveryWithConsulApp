@@ -34,7 +34,7 @@ namespace API1.Controllers
          // Hata için api3 ile dene
          var service = (await consulClient.Agent.GetServiceConfiguration("api2")).Response;
 
-         var url = $"https://{service.Address}:{service.Port}/{service.Service}/tests";
+         var url = $"http://{service.Address}:{service.Port}/{service.Service}/tests";
 
          await Console.Out.WriteLineAsync(url);
 

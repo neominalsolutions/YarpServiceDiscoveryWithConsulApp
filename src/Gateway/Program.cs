@@ -15,8 +15,11 @@ builder.Services.AddReverseProxy();
 
 builder.Services.AddSingleton<IConsulClient, ConsulClient>(p => new ConsulClient(consulConfig =>
 {
-  consulConfig.Address = new Uri("http://localhost:8500");
+  //consulConfig.Address = new Uri("http://localhost:8500"); // local
+  consulConfig.Address = new Uri("http://consul1:8500"); // Docker
 }));
+
+
 
 builder.Services.AddSingleton<IProxyConfigProvider,ConsulProxyConfigProvider>();
 
@@ -30,20 +33,8 @@ if (app.Environment.IsDevelopment())
 }
 
 
-// Uygulama down olurken temizle iþlemi
-var consulClient = app.Services.GetRequiredService<IConsulClient>();
-consulClient.Agent.ServiceDeregister("BasketService").Wait();
-consulClient.Agent.ServiceDeregister("ProductService").Wait();
 
-// uygulama stop edilirken silin
-app.Lifetime.ApplicationStopping.Register(() =>
-{
-  consulClient.Agent.ServiceDeregister("BasketService").Wait();
-  consulClient.Agent.ServiceDeregister("ProductService").Wait();
-});
-
-
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

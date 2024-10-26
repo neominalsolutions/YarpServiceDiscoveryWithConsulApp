@@ -61,7 +61,10 @@ namespace Gateway.Services
           }
         });
 
-        var destinationAddress = $"https://{serviceAddress}:{servicePort}";
+        //var destinationAddress = $"http://{serviceAddress}:{servicePort}";
+
+        var destinationAddress = $"http://{serviceName}:{servicePort}";
+        Console.WriteLine("destination address" + destinationAddress);
 
         clusters.Add(new ClusterConfig
         {
