@@ -24,8 +24,8 @@ var consulClient = app.Services.GetRequiredService<IConsulClient>();
 
 app.Lifetime.ApplicationStarted.Register(() =>
 {
-  var uri = new Uri("http://localhost:5002"); // Local
-  // var uri = new Uri("http://api2:5002"); // Docker
+  // var uri = new Uri("http://localhost:5002"); // Local
+  var uri = new Uri("http://api2:5002"); // Docker
   var serviceName = "api2";
   var serviceId = "api2";
 

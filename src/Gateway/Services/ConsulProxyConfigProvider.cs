@@ -62,11 +62,10 @@ namespace Gateway.Services
           }
         });
 
-        var destinationAddress = $"http://{serviceAddress}:{servicePort}"; // Local http://localhost:5001
+        // var destinationAddress = $"http://{serviceAddress}:{servicePort}"; // Local http://localhost:5001
 
-        // var destinationAddress = $"http://{serviceName}:{servicePort}"; // Docker http://api1:5001
+        var destinationAddress = $"http://{serviceName}:{servicePort}"; // Docker http://api1:5001
 
-        Console.WriteLine("destination address" + destinationAddress);
 
         clusters.Add(new ClusterConfig
         {

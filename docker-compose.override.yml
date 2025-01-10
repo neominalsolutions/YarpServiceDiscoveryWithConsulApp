@@ -20,9 +20,6 @@ services:
       - gateway
       - rabbitmq
       - consul
-    external_links: 
-      - rabbitmq_service
-      - consul_service
 
   api2:
     environment:
@@ -36,9 +33,6 @@ services:
       - gateway
       - rabbitmq
       - consul
-    external_links: 
-      - rabbitmq
-      - consul_service
 
   consul:
     ports:

@@ -14,8 +14,6 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddReverseProxy();
 
-builder.Host.UseSerilog((ctx, cfg) => cfg.ReadFrom.Configuration(ctx.Configuration));
-
 //v2
 //var routes = new List<Yarp.ReverseProxy.Configuration.RouteConfig>();
 //routes.Add(new Yarp.ReverseProxy.Configuration.RouteConfig
@@ -50,6 +48,7 @@ if (app.Environment.IsDevelopment())
   app.UseSwagger();
   app.UseSwaggerUI();
 }
+
 
 
 
